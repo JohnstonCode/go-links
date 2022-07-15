@@ -1,4 +1,4 @@
-package http
+package main
 
 import (
 	"github.com/JohnstonCode/go-links/model"
@@ -41,11 +41,17 @@ func createLink(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(link)
 }
 
-func SetupAndListen() {
+func setupAndListen() {
 	router := fiber.New()
 
 	router.Get("/links", getAllLinks)
 	router.Post("/links", createLink)
 
 	router.Listen(":3000")
+}
+
+func main() {
+	model.Setup()
+
+	setupAndListen()
 }
